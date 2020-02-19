@@ -17,10 +17,7 @@ export type GetTokenReturn = {
 };
 
 /**
- * Opens the Oauth URL, starts an express server which listens for the redirect when
- * the user logs in. the Redirect Server makes a request to the tokenUrl and returns
- * back the token in the response. It resolves the promise of the OAuthCLI with the
- * token
+ * Gets the token from the API server using the authorization code
  *
  * @param tokenUrl - The URL to fetch the token (ex: https://api.dropbox.com/1/oauth2/token)
  * @param code - The authorization code from the oauth server (ex: 032isdi9323)
