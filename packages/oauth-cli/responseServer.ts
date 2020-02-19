@@ -19,6 +19,21 @@ export type ResponseServerReturn = {
   userId: string;
 };
 
+/**
+ * Starts an express server which listens for the redirect when the user logs in.
+ * The Redirect Server makes a request to the tokenUrl and returns back the token
+ * in the response. It resolves the promise with the token
+ *
+ * @param tokenUrl - The URL to fetch the token (example: https://api.dropbox.com/1/oauth2/token)
+ * @param appKey - The App Key (aka as the clientID) (ex: 32d93023sdsd)
+ * @param appSecret - The App Secret (ex: 320s9329s0)
+ *
+ * @param serverPort - (optional) The port our local server is run on (default: 8888)
+ * @param serverRedirectPath - (optional) The path on our local server to redirect to (default: /redirect)
+ * @param grantType - (optional) The grant type for the token (default: authorization_code)
+ *
+ * @returns The token, tokenType (ex: Bearer), and userID
+ */
 export default async ({
   tokenUrl,
   appKey,

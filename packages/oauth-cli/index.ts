@@ -27,6 +27,8 @@ type OAuthCliOpts = Omit<Omit<GetOAuthUrlOpts, "clientID">, "state"> &
  * @param serverPort - (optional) The port our local server is run on (default: 8888)
  * @param responseType - (optional) The response type from the first OAuth Request (default: code)
  * @param grantType - (optional) The grant type for the token (default: authorization_code)
+ *
+ * @returns The token, tokenType (ex: Bearer), and userID
  */
 export default ({
   url,
