@@ -1,6 +1,6 @@
 import getOauthUrl from "../getOauthUrl";
 
-describe("@cli-toolkit/oauth-cli/getOauthUrl", () => {
+describe("@node-cli-toolkit/oauth-cli/getOauthUrl", () => {
   it("should return oauth redirect url with default parameters", async () => {
     expect(
       await getOauthUrl({
