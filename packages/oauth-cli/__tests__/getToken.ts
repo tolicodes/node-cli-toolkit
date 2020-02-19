@@ -1,7 +1,7 @@
 import getToken from "../getToken";
 import moxios = require("moxios");
 
-describe("@cli-toolkit/oauth-cli/getToken", () => {
+describe("@node-cli-toolkit/oauth-cli/getToken", () => {
   it("should fetch token", async () => {
     moxios.install();
 

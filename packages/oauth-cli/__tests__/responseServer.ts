@@ -2,7 +2,7 @@ import responseServer from "../responseServer";
 import axios from "axios";
 import moxios = require("moxios");
 
-describe("@cli-toolkit/oauth-cli/responseServer", () => {
+describe("@node-cli-toolkit/oauth-cli/responseServer", () => {
   it("should accept a redirect request from the Oauth server", async () => {
     // we have start this after the command is run which starts the server
     setTimeout(async () => {

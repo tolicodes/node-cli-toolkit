@@ -6,7 +6,7 @@ import oauthCLI from "../index";
 
 jest.mock("child_process");
 
-describe("@cli-toolkit/oauth-cli", () => {
+describe("@node-cli-toolkit/oauth-cli", () => {
   it("should perform an oauth flow", async () => {
     // we have start this after the command is run which starts the server
     setTimeout(async () => {
