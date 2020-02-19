@@ -7,7 +7,8 @@
   },
   "version": "0.1.0",
   "main": "index.ts",
-  "license": "GPL",
+  "license": "GPL-3.0",
+  "public": true,
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
