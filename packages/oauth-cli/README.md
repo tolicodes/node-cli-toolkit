@@ -4,9 +4,17 @@ A Node utility that opens the Oauth URL, starts an express server which listens 
 the user logs in. the Redirect Server makes a request to the tokenUrl and returns
 back the token in the response. It resolves the promise of the OAuthCLI with the token
 
+## Installation
+
+```bash
+yarn add @node-cli-toolkit/oauth-cli
+```
+
 ## Usage
 
 ```js
+import oauthCLI from "@node-cli-toolkit/oauth-cli";
+
 await oauthCLI({
   url: "http://oauthprovider.com/oauth",
   tokenUrl: "http://oauthprovider.com/token",
