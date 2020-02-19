@@ -9,6 +9,15 @@ export type GetOAuthUrlOpts = {
   responseType?: string;
 };
 
+/**
+ * Gets the OAuth URL to open the browser to
+ *
+ * @param url - Initial OAuth URL (example: https://www.dropbox.com/1/oauth2/authorize)
+ * @param clientID - The App Key (aka as the appKey) (ex: 32d93023sdsd)
+ * @param state - The CSRF Token or UUID to check that it's the same user, we usually just pass a random UUID (ex: 320s9329s0)
+ *
+ * @returns The url to open
+ */
 export default ({
   url,
   clientID,
