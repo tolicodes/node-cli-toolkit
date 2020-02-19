@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export type GetTokenOpts = {
   tokenUrl: string;
   code: string;
@@ -23,9 +25,21 @@ export default async ({
 
   grantType = "authorization_code"
 }: GetTokenOpts): Promise<GetTokenReturn> => {
-  return {
-    token: "I_AM_THE_TOKEN",
-    tokenType: "Bearer",
-    userId: "789"
-  };
+  try {
+    const { access_token: token, token_type: tokenType, uid: userId } = (
+      await axios.post(
+        `${tokenUrl}?code=${code}&grant_type=${grantType}&client_id=${appKey}&client_secret=${appSecret}&redirect_uri=${redirectUri}`
+      )
+    ).data;
+
+    return {
+      token,
+      tokenType,
+      userId
+    };
+  } catch (e) {
+    throw new Error(
+      `Error while getting token: ${e.response.data.error} ${e.response.data.error_description}`
+    );
+  }
 };
