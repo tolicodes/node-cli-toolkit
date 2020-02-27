@@ -19,8 +19,10 @@ type OAuthCliOpts = Omit<Omit<GetOAuthUrlOpts, "clientID">, "state"> &
  *
  * @param url - Initial OAuth URL (example: https://www.dropbox.com/1/oauth2/authorize)
  * @param tokenUrl - The URL to fetch the token (example: https://api.dropbox.com/1/oauth2/token)
- * @param appKey - The App Key (aka as the clientID) (ex: 32d93023sdsd)
- * @param appSecret - The App Secret (ex: 320s9329s0)
+ * @param appKey - This is the app key you get from creating your Dropbox application 
+ * (https://docs.gravityforms.com/creating-a-custom-dropbox-app/) (ex: 3u23809sd90239)
+ * @param appSecret - This is the app secret you get from creating your Dropbox application
+ * (ex: 3u23809sd90239)
  *
  * @param redirectURI - (optional) The URI of our local server (default: http://localhost:8888/redirect)
  * @param serverRedirectPath - (optional) The path on our local server to redirect to (default: /redirect)
