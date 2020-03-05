@@ -5,6 +5,8 @@ import express = require("express");
 import url = require("url");
 import axios from "axios";
 
+import { saveToken } from "@node-api-toolkit/save-token";
+
 export const SUCCESSFUL_LOGIN_MESSAGE =
   "You have successfully logged in! You can close the browser";
 
@@ -21,6 +23,10 @@ export type OAuthCliOpts = {
   appSecret: string;
 
   callbackURL?: string;
+
+  saveTokenToFile?: boolean;
+  tokenPath?: string;
+  tokenIdentifier?: string;
 };
 
 export type OauthCLIReturn = {
@@ -32,7 +38,7 @@ export type OauthCLIReturn = {
 /**
  * Opens the `authorizationURL` (on the oauth server), starts an express server
  * which listens for the redirect from the oauth server after the user logs in.
- * Then the oauth2 library makes a request to the `tokenUrl` and returns
+ * Then the oauth2 library makes a request to the `tokenURL` and returns
  * back the token in the response. It resolves the promise of the OAuthCLI with the
  * `accessToken` and `refreshToken`
  *
@@ -60,6 +66,13 @@ export type OauthCLIReturn = {
  * @param appSecret - Aka the `clientSecret` This is the app secret you get from creating your Oauth
  * application (ex: 3u23809sd90239)
  *
+ * @param saveTokenToFile - Should the token be saved to a file
+ * @param tokenIdentifier - If saving to a file, what should be the unique token identifier
+ * See https://github.com/tolicodes/node-api-toolkit/tree/master/packages/save-token for more
+ * info
+ * @param tokenPath - If saving to a file, what should be the filename (if not using a token
+ * identifier)
+ *
  * @returns The `accessToken`, `refreshToken`, and possibly a `user` with additional options
  */
 export default ({
@@ -72,7 +85,11 @@ export default ({
   oauthStrategyOptions,
   mutateUser,
 
-  callbackURL = "http://localhost:8888/auth/callback"
+  callbackURL = "http://localhost:8888/auth/callback",
+
+  saveTokenToFile,
+  tokenIdentifier,
+  tokenPath
 }: OAuthCliOpts): Promise<OauthCLIReturn> =>
   new Promise(async resolve => {
     // we do this so that we can kill the server if there is any errors
@@ -156,7 +173,17 @@ export default ({
         res.send(SUCCESSFUL_LOGIN_MESSAGE);
 
         // we resolve with the result that we got in the previous callback
-        server.close(() => {
+        server.close(async () => {
+          // if the user wants to save token to a file
+          // we need to pass a token identifier or tokenPath
+          if (saveTokenToFile) {
+            await saveToken({
+              token: result.accessToken,
+              tokenIdentifier,
+              filePath: tokenPath
+            });
+          }
+
           resolve(result);
         });
       });
