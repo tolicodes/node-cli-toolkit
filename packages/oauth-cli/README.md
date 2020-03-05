@@ -1,8 +1,10 @@
 # OAuth CLI
 
-A Node utility that opens the Oauth URL, starts an express server which listens for the redirect when
-the user logs in. the Redirect Server makes a request to the tokenUrl and returns
-back the token in the response. It resolves the promise of the OAuthCLI with the token
+A Node utility that opens the `authorizationURL` (on the oauth server), starts an express server
+which listens for the redirect from the oauth server after the user logs in.
+Then the oauth2 library makes a request to the `tokenURL` and returns back the token in the response. It resolves the promise of the OAuthCLI with the `accessToken` and `refreshToken`.
+
+You can either use oauth2 directly (passing in a `authorizationURL` and `tokenURL`) or pass in any passport strategy
 
 ## Installation
 
@@ -12,11 +14,13 @@ yarn add @node-cli-toolkit/oauth-cli
 
 ## Usage
 
+### Using Default Oauth2 Strategy
+
 ```js
 import oauthCLI from "@node-cli-toolkit/oauth-cli";
 
 await oauthCLI({
-  url: "http://oauthprovider.com/oauth",
+  authorizationURL: "http://oauthprovider.com/oauth",
   tokenUrl: "http://oauthprovider.com/token",
   appKey: "key",
   appSecret: "secret"
@@ -24,30 +28,176 @@ await oauthCLI({
 ```
 
 Returns:
-The token, tokenType (ex: Bearer), and userID
+The `accessToken`, `refreshToken`, `user`
 
 ```js
 {
-  token: "I_AM_THE_TOKEN",
-  tokenType: "Bearer",
-  userId: "789"
+  accessToken: "I_AM_THE_TOKEN",
+  refreshToken: "REFRESH_TOKEN",
+  user: {}
 }
+```
+
+### Using Custom Passport Strategy
+
+```js
+import { Strategy as DropboxOAuth2Strategy } from "passport-dropbox-oauth2";
+import oauthCLI from "@node-cli-toolkit/oauth-cli";
+
+await oauthCLI({
+  oauthStrategy: DropboxOAuth2Strategy,
+  oauthStrategyOptions: {
+    apiVersion: "2"
+  },
+  mutateUser: profile => ({
+    userId: profile.id,
+    email: profile.emails[0].value,
+    name: {
+      givenName: profile.name.givenName,
+      familyName: profile.name.familyName,
+      displayName: profile.displayName
+    },
+    // any other user details
+    profile
+  }),
+  appSecret: "SECRET",
+  appKey: "KEY"
+});
+```
+
+Returns:
+The `accessToken`, `refreshToken`, `user`
+
+```js
+{
+  accessToken: "I_AM_THE_TOKEN",
+  refreshToken: "REFRESH_TOKEN",
+  user: {}
+}
+```
+
+### Save token to a file using a Token Identifier
+
+This is great for prototyping. It saves your token to
+the file system in the `/tmp` folder with a unique token identifier. You can later retrieve it using `getToken` utility.
+
+See [@node/api-toolkit/save-token](https://github.com/tolicodes/node-api-toolkit/tree/master/packages/save-token) for more info
+
+```js
+import oauthCLI from "@node-cli-toolkit/oauth-cli";
+
+await oauthCLI({
+  authorizationURL: "http://oauthprovider.com/oauth",
+  tokenUrl: "http://oauthprovider.com/token",
+  appKey: "key",
+  appSecret: "secret",
+  saveTokenToFile: true,
+  tokenIdentifier: "NODE_CLI_TOOLKIT_OAUTH_TOKEN_JEST"
+});
+```
+
+Returns:
+The `accessToken`, `refreshToken`, `user`
+
+```js
+{
+  accessToken: "I_AM_THE_TOKEN",
+  refreshToken: "REFRESH_TOKEN",
+  user: {}
+}
+```
+
+Saves token to `/tmp/NODE_CLI_TOOLKIT_OAUTH_TOKEN_JEST`
+
+You can retrieve using
+
+```js
+import { getToken } from "@node-api-toolkit/save-token";
+
+const token = await getToken({
+  tokenIdentifier: "NODE_CLI_TOOLKIT_OAUTH_TOKEN_JEST"
+});
+```
+
+### Save token to a file using a Token Identifier
+
+This is great for prototyping. It saves your token to
+the file system in whatever file you choose. You can later retrieve it using `getToken` utility.
+
+See [@node/api-toolkit/save-token](https://github.com/tolicodes/node-api-toolkit/tree/master/packages/save-token) for more info
+
+```js
+import oauthCLI from "@node-cli-toolkit/oauth-cli";
+
+await oauthCLI({
+  authorizationURL: "http://oauthprovider.com/oauth",
+  tokenUrl: "http://oauthprovider.com/token",
+  appKey: "key",
+  appSecret: "secret",
+  saveTokenToFile: true,
+  tokenPath: "/tmp/node-api-toolkit-save-token-test-custom-file"
+});
+```
+
+Returns:
+The `accessToken`, `refreshToken`, `user`
+
+```js
+{
+  accessToken: "I_AM_THE_TOKEN",
+  refreshToken: "REFRESH_TOKEN",
+  user: {}
+}
+```
+
+Saves token to `/tmp/node-api-toolkit-save-token-test-custom-file`
+
+You can retrieve using:
+
+```js
+import { getToken } from "@node-api-toolkit/save-token";
+
+const token = await getToken({
+  filePath: "/tmp/node-api-toolkit-save-token-test-custom-file"
+});
 ```
 
 ## Options
 
-- `url` - Initial OAuth URL (example: https://www.dropbox.com/1/oauth2/authorize)
+### Required For All
+
+- `appKey` - Aka the `clientID`. This is the app key you get from creating your Oauth application
+
+* (ex for Dropbox: https://docs.gravityforms.com/creating-a-custom-dropbox-app/) (ex: 3u23809sd90239)
+
+- `appSecret` - Aka the `clientSecret` This is the app secret you get from creating your Oauth
+
+* application (ex: 3u23809sd90239)
+
+### Using Default Strategy
+
+- `authorizationURL` - Initial OAuth URL (example: https://www.dropbox.com/1/oauth2/authorize)
 - `tokenUrl` - The URL to fetch the token (example: https://api.dropbox.com/1/oauth2/token)
-- `appKey` - The App Key (aka as the clientID) (ex: 32d93023sdsd)
-- `appSecret` - The App Secret (ex: 320s9329s0)
-
-### Optional
-
 - `callbackURL` - (optional) The URI of our local server (default: http://localhost:8888/redirect)
-- `serverRedirectPath` - (optional) The path on our local server to redirect to (default: /redirect)
-- `serverPort` - (optional) The port our local server is run on (default: 8888)
-- `responseType` - (optional) The response type from the first OAuth Request (default: code)
-- `grantType` - (optional) The grant type for the token (default: authorization_code)
+
+### Passing IN a Custom Strategy
+
+- `oauthStrategy` - The Strategy constructor (ex: `DropboxOAuth2Strategy`),
+- `oauthStrategyOptions` - The custom options you need pass to the strategy besides the `appKey` and `appSecret`. Example:
+
+  ```
+  {
+     apiVersion: "2"
+  }
+  ```
+
+- `mutateUser` - (optional) - A parser for the user object (profile) you get back. Otherwise it just passes in the result
+
+### Saving Token to A File
+
+- `saveTokenToFile` - Should the token be saved to a file
+- `tokenIdentifier` - If saving to a file, what should be the unique token identifier. See [@node/api-toolkit/save-token](https://github.com/tolicodes/node-api-toolkit/tree/master/packages/save-token) for more info
+- `tokenPath` - If saving to a file, what should be the filename (if not using a token identifier)
 
 ### Components
 
