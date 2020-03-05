@@ -6,7 +6,7 @@
     "test:watch": "yarn test --watch",
     "build": "yarn tsc"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "index.js",
   "license": "GPL-3.0",
   "public": true,
