@@ -43,7 +43,7 @@ The token, tokenType (ex: Bearer), and userID
 
 ### Optional
 
-- `redirectURI` - (optional) The URI of our local server (default: http://localhost:8888/redirect)
+- `callbackURL` - (optional) The URI of our local server (default: http://localhost:8888/redirect)
 - `serverRedirectPath` - (optional) The path on our local server to redirect to (default: /redirect)
 - `serverPort` - (optional) The port our local server is run on (default: 8888)
 - `responseType` - (optional) The response type from the first OAuth Request (default: code)
