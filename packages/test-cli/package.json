@@ -1,0 +1,18 @@
+{
+	"name": "@infragen/util-test-cli",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/jest": "^24.0.23",
+		"@types/node": "^12.12.17",
+		"fs-extra": "^8.1.0",
+		"inquirer": "^7.0.1",
+		"jest": "^24.9.0",
+		"ts-jest": "^24.2.0",
+		"ts-node": "^8.5.4",
+		"typescript": "^3.7.2"
+	}
+}

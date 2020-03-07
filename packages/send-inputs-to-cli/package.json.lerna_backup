@@ -1,0 +1,22 @@
+{
+  "name": "@infragen/util-send-inputs-to-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config jest.config.json",
+    "test:watch": "jest --config jest.config.json --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^13.1.4",
+    "inquirer": "^7.0.1",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2",
+    "ts-node": "^8.5.4"
+  },
+  "dependencies": {}
+}
