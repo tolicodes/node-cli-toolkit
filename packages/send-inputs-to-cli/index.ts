@@ -1,7 +1,7 @@
 import debug from "debug";
 
 // anything less and inquirer doesn't catch it
-export const DEFAULT_TIMEOUT_BETWEEN_INPUTS = 500;
+export const DEFAULT_TIMEOUT_BETWEEN_INPUTS = 1000;
 
 // Could be a list of inputs or objects listing the input and timeout
 // before the input is fired
