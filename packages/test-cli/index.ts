@@ -1,15 +1,13 @@
 import { writeFileSync, unlinkSync } from "fs";
 import { v4 as uuidv4 } from "uuid";
-import debug from "debug";
 
-import execBashCommand, {
-  IExecBashCommandReturn
-} from "@node-cli-toolkit/exec-bash-command";
+import execBashCommand from "@node-cli-toolkit/exec-bash-command";
 
 import {
   DEFAULT_TIMEOUT_BETWEEN_INPUTS,
   CLIInputs
 } from "@node-cli-toolkit/send-inputs-to-cli";
+
 // if we don't pass a cwd, we will create the temporary node file in the tmp directory
 const TMP_DIR = "/tmp/";
 
@@ -41,6 +39,17 @@ export interface ITestCLIOpts {
   // ]
   //
   inputs?: CLIInputs;
+
+  // you can specify the path to the script you would like to run
+  nodeScriptPath?: string;
+
+  // a file exporting an executable default function with the mocks
+  // for a script. Use for mocking APIs
+  mockScriptPath?: string;
+
+  // specify arguments (when using with nodeScriptPath or nodeScript)
+  // ex: --input1=hello --input2=bye
+  args?: string;
 
   // this is a stringified node script to run as a child process
   // ex:
@@ -75,6 +84,10 @@ export default ({
   bashCommand,
   inputs,
 
+  nodeScriptPath,
+  mockScriptPath,
+  args,
+
   nodeScript,
   nodeCommand = "node",
   extension = "js",
@@ -93,7 +106,24 @@ export default ({
     tmpFile = `${TMP_DIR}/${uuidv4()}.${extension}`;
     writeFileSync(tmpFile, nodeScript);
 
-    bashCommand = `${nodeCommand} "${tmpFile}"`;
+    bashCommand = `${nodeCommand} "${tmpFile}" ${args}`;
+  }
+
+  if (nodeScriptPath) {
+    tmpFile = `${TMP_DIR}/${uuidv4()}.${extension}`;
+
+    const file = `
+      ${mockScriptPath &&
+        `
+      const mock = require('${mockScriptPath}');
+      mock();
+      `}
+      require('${nodeScriptPath}');
+    `;
+
+    writeFileSync(tmpFile, file);
+
+    bashCommand = `${nodeCommand} "${tmpFile}" ${args}`;
   }
 
   return execBashCommand({

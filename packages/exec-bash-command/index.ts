@@ -1,5 +1,5 @@
 import * as child_process from "child_process";
-import debug from 'debug';
+import debug from "debug";
 
 import sendInputs, {
   DEFAULT_TIMEOUT_BETWEEN_INPUTS,
@@ -63,9 +63,9 @@ export default ({
   cwd
 }: IExecBashCommandOpts): Promise<IExecBashCommandReturn> =>
   new Promise((resolve, reject) => {
-    const output = `Executing command "${bashCommand}" in ${cwd}`;
-    const debugCommand = debug(`exec-bash-command:${output}`);
+    const debugCommand = debug(`exec-bash-command`);
 
+    const output = `Executing command "${bashCommand}" in ${cwd}`;
     debugCommand(output);
     outputCB && outputCB(output);
     const proc = child_process.exec(bashCommand, {
@@ -81,14 +81,14 @@ export default ({
     proc.stdout.on("data", data => {
       debugCommand(data);
       outputCB && outputCB(data);
-      
-      // if we are on our first output, 
+
+      // if we are on our first output,
       // begin sending inputs
-      if (firstOutput)  {
+      if (firstOutput) {
         sendInputsPromise = sendInputs({
           inputs,
           stdin: proc.stdin,
-          timeoutBetweenInputs,
+          timeoutBetweenInputs
         });
         firstOutput = false;
       }
@@ -103,7 +103,7 @@ export default ({
         errorCB && errorCB(data);
       }
     });
- 
+
     proc.on("exit", code => {
       sendInputsPromise.then(
         () => {
