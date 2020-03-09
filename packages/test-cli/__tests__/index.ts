@@ -106,11 +106,11 @@ describe("@node-cli-toolkit/test-cli", () => {
     });
 
     expect(output).toBeCalledWith(
-      expect.stringMatching(/Something good happened/)
+      expect.stringContaining("Something good happened")
     );
 
     expect(error).toBeCalledWith(
-      expect.stringMatching(/Something bad happened/)
+      expect.stringContaining("Something bad happened")
     );
 
     expect(code).toBe(0);
@@ -324,53 +324,55 @@ describe("@node-cli-toolkit/test-cli", () => {
     const cwd = `${TMP_DIR}${uuidv4()}`;
     await ensureDir(cwd);
 
-    let error;
-    try {
-      ({ error } = await testCLI({
-        bashCommand: `${TS_NODE_BASH_COMMAND} "${__dirname}/../mockCLIs/cwdTest.ts"`,
-        cwd
-      }));
-    } catch (e) {
-      console.error(e.error.mock.calls);
-    }
+    const { error, code, output } = await testCLI({
+      bashCommand: `${TS_NODE_BASH_COMMAND} "${__dirname}/../mockCLIs/cwdTest.ts"`,
+      cwd
+    });
 
-    // expect(code).toEqual(0);
-    // expect(error.mock.calls.length).toBe(0);
+    expect(code).toEqual(0);
+    expect(error.mock.calls.length).toBe(0);
 
-    // expect(output).toBeCalledWith(expect.stringMatching(cwd));
+    expect(output).toBeCalledWith(expect.stringMatching(cwd));
   });
 
-  // @todo not sure how to test this
-  // it.only("outputs debug info when debug flag is passed", async () => {
-  //   const stdOutWriteMock = jest.fn();
-  //   const stdErrWriteMock = jest.fn();
+  it("should test a CLI by specifying a file to `nodeScriptPath`", async () => {
+    const { error, code, output } = await testCLI({
+      nodeScriptPath: `${__dirname}/../mockCLIs/minimal.ts`
+    });
 
-  //   const stdOutWriteOriginal = process.stdout.write;
-  //   const stdErrWriteOriginal = process.stderr.write;
+    expect(code).toEqual(0);
+    expect(error.mock.calls.length).toBe(1);
 
-  //   process.stdout.write = stdOutWriteMock;
-  //   process.stderr.write = stdErrWriteMock;
+    expect(output).toBeCalledWith(
+      expect.stringContaining("Something good happened")
+    );
 
-  //   await testCLI({
-  //     bashCommand: `ts-node ./mockCLIs/minimal.ts`,
-  //     debug: true
-  //   });
+    expect(error).toBeCalledWith(
+      expect.stringContaining("Something bad happened")
+    );
+  });
 
-  //   const debug = true;
-  //   if (debug) {
-  //     console.log(stdOutWriteMock.mock.calls);
-  //     console.error(stdErrWriteMock.mock.calls);
-  //   }
+  it("should test a CLI by specifying a file to `nodeScriptPath` and `args`", async () => {
+    const { error, code, output } = await testCLI({
+      nodeScriptPath: `${__dirname}/../mockCLIs/arguments.js`,
+      args: "--input1=1 --input2=2"
+    });
 
-  //   expect(stdOutWriteMock).toBeCalledWith(
-  //     expect.stringMatching(/Something good happened/)
-  //   );
+    expect(code).toEqual(0);
+    expect(error.mock.calls.length).toBe(0);
 
-  //   expect(stdErrWriteMock).toBeCalledWith(
-  //     expect.stringMatching(/Something bad happened/)
-  //   );
+    expect(output).toBeCalledWith(expect.stringContaining("The sum is 3"));
+  });
 
-  //   process.stdout.write = stdOutWriteOriginal;
-  //   process.stderr.write = stdErrWriteOriginal;
-  // });
+  it("should include and execute a mocks script when passed to `mockScriptPath`", async () => {
+    const { error, code, output } = await testCLI({
+      nodeScriptPath: `${__dirname}/../mockCLIs/apiTest.js`,
+      mockScriptPath: `${__dirname}/../mockCLIs/__mocks/api.js`
+    });
+
+    expect(code).toEqual(0);
+    // expect(error.mock.calls.length).toBe(0);
+
+    expect(output).toBeCalledWith(expect.stringContaining("I'm ok"));
+  });
 });
