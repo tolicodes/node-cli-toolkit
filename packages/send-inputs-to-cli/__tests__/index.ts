@@ -68,7 +68,7 @@ const testSendInputToCLI = async ({
     });
   });
 
-describe("@infragen/util-send-inputs-to-cli", () => {
+describe("@node-cli-toolkit/send-inputs-to-cli", () => {
   beforeAll(() => {
     jest.setTimeout(CLI_TIMEOUT);
   });
@@ -138,7 +138,7 @@ describe("@infragen/util-send-inputs-to-cli", () => {
         // Check "Option 1"
         {
           input: SPACE,
-          timeoutBeforeInput: 1300
+          timeoutBeforeInput: 1500
         },
 
         // Move to "Option 2"
@@ -156,7 +156,7 @@ describe("@infragen/util-send-inputs-to-cli", () => {
         // Type answer to "What's your name"
         {
           input: "Anatoliy Zaslavskiy",
-          timeoutBeforeInput: 2300
+          timeoutBeforeInput: 2500
         },
 
         // Submit answer to question
@@ -216,7 +216,7 @@ describe("@infragen/util-send-inputs-to-cli", () => {
         // Submit answer to question
         ENTER
       ],
-      timeoutBetweenInputs: 2300
+      timeoutBetweenInputs: 2500
     });
 
     expect(error.mock.calls.length).toBe(0);

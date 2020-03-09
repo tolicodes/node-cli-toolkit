@@ -1,9 +1,10 @@
 import * as child_process from "child_process";
+import debug from 'debug';
 
 import sendInputs, {
   DEFAULT_TIMEOUT_BETWEEN_INPUTS,
   CLIInputs
-} from "@infragen/util-send-inputs-to-cli";
+} from "@node-cli-toolkit/send-inputs-to-cli";
 
 export interface IExecBashCommandReturn {
   // Exit code of the process
@@ -40,10 +41,6 @@ export interface IExecBashCommandOpts {
   // only writes to `outputCB` instead of `errorCB` (good to use with git commands)
   onlyOutputCB?: boolean;
 
-  // Should we print out all the calls to the output and error mocks
-  // otherwise use
-  debug?: boolean;
-
   // time to wait in between sending inputs
   // if one of your commands takes longer than the default
   // 100 ms increase this parameter
@@ -61,40 +58,52 @@ export default ({
 
   outputCB,
   errorCB,
-  debug = false,
   onlyOutputCB,
 
   cwd
 }: IExecBashCommandOpts): Promise<IExecBashCommandReturn> =>
   new Promise((resolve, reject) => {
     const output = `Executing command "${bashCommand}" in ${cwd}`;
-    debug && console.log(output);
-    outputCB && outputCB();
+    const debugCommand = debug(`exec-bash-command:${output}`);
+
+    debugCommand(output);
+    outputCB && outputCB(output);
     const proc = child_process.exec(bashCommand, {
       cwd
     });
 
+    // only start sending inputs after the first output
+    let firstOutput = true;
+
+    // promise when all the inputs are sent
+    let sendInputsPromise;
+
     proc.stdout.on("data", data => {
-      debug && console.log(data);
+      debugCommand(data);
       outputCB && outputCB(data);
+      
+      // if we are on our first output, 
+      // begin sending inputs
+      if (firstOutput)  {
+        sendInputsPromise = sendInputs({
+          inputs,
+          stdin: proc.stdin,
+          timeoutBetweenInputs,
+        });
+        firstOutput = false;
+      }
     });
 
     proc.stderr.on("data", data => {
       if (onlyOutputCB) {
-        debug && console.log(data);
+        debugCommand(data);
         outputCB && outputCB(data);
       } else {
-        debug && console.error(data);
+        debugCommand(data);
         errorCB && errorCB(data);
       }
     });
-
-    const sendInputsPromise = sendInputs({
-      inputs,
-      stdin: proc.stdin,
-      timeoutBetweenInputs
-    });
-
+ 
     proc.on("exit", code => {
       sendInputsPromise.then(
         () => {

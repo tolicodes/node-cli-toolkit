@@ -1,14 +1,15 @@
 import { writeFileSync, unlinkSync } from "fs";
 import { v4 as uuidv4 } from "uuid";
+import debug from "debug";
 
 import execBashCommand, {
   IExecBashCommandReturn
-} from "@infragen/util-exec-bash-command";
+} from "@node-cli-toolkit/exec-bash-command";
 
 import {
   DEFAULT_TIMEOUT_BETWEEN_INPUTS,
   CLIInputs
-} from "@infragen/util-send-inputs-to-cli";
+} from "@node-cli-toolkit/send-inputs-to-cli";
 // if we don't pass a cwd, we will create the temporary node file in the tmp directory
 const TMP_DIR = "/tmp/";
 
@@ -80,15 +81,11 @@ export default ({
 
   timeoutBetweenInputs = DEFAULT_TIMEOUT_BETWEEN_INPUTS,
   cwd,
-  debug = false
+  debug = true
 }: ITestCLIOpts = {}): Promise<ITestCLIReturn> => {
   // we handle debugging here by watching the functions we pass through
-  const outputCB = jest.fn().mockImplementation(data => {
-    debug && console.log(data);
-  });
-  const errorCB = jest.fn().mockImplementation(data => {
-    debug && console.error(data);
-  });
+  const outputCB = jest.fn();
+  const errorCB = jest.fn();
 
   let tmpFile;
 

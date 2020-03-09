@@ -2,7 +2,7 @@
   "name": "node-cli-toolkit",
   "scripts": {
     "start": "ts-node .",
-    "test": "jest --config jest.config.json --runInBand",
+    "test": "DEBUG=* yarn jest --config jest.config.json --runInBand --verbose",
     "test:watch": "yarn test --watch"
   },
   "version": "0.0.1",

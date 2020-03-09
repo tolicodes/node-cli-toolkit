@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as child_process from "child_process";
 
 import execBashCommand, { IExecBashCommandReturn } from "../";
-import { SPACE, DOWN, ENTER } from "@infragen/util-send-inputs-to-cli";
+import { SPACE, DOWN, ENTER } from "@node-cli-toolkit/send-inputs-to-cli";
 
 const CLI_TIMEOUT = 180000;
 const DEFAULT_TIMEOUT = 5000;
@@ -37,7 +37,7 @@ let DEFAULT_EXEC_BASH_COMMAND_OPTS;
 let error;
 let output;
 
-describe("@infragen/util-exec-bash-command", () => {
+describe("@node-cli-toolkit/exec-bash-command", () => {
   beforeAll(() => {
     jest.setTimeout(CLI_TIMEOUT);
   });

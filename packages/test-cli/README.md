@@ -1,4 +1,4 @@
-# @infragen/util-test-cli
+# @node-cli-toolkit/test-cli
 
 This is a generic utility that should be able to test any CLI. It's meant to be used in the context of Jest as it exports mock functions that fire when there's data on `stdout` or `stderr`
 
@@ -21,8 +21,8 @@ To see examples of each please see tests under `__tests__`
 ### Basic usage
 
 ```typescript
-import { ITestGeneratorOutput }, testCLI from '@infragen/util-test-cli';
-import { SPACE, DOWN, ENTER } from '@infragen/send-input-to-cli';
+import { ITestGeneratorOutput }, testCLI from '@node-cli-toolkit/test-cli';
+import { SPACE, DOWN, ENTER } from '@node-cli-toolkit/send-input-to-cli';
 
 const { code, error, output }: ITestCLIReturn = await testCLI({
       bashCommand: `ts-node ./mockCLIs/standard.ts`,

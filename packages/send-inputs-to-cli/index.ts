@@ -1,5 +1,7 @@
+import debug from "debug";
+
 // anything less and inquirer doesn't catch it
-export const DEFAULT_TIMEOUT_BETWEEN_INPUTS = 400;
+export const DEFAULT_TIMEOUT_BETWEEN_INPUTS = 1000;
 
 // Could be a list of inputs or objects listing the input and timeout
 // before the input is fired
@@ -36,7 +38,8 @@ export default async ({
   // write the input to stdin
   return inputs.reduce(
     (previousPromise, input) =>
-      new Promise(async (resolve, reject) => {
+      new Promise(async resolve => {
+        const debugCommand = debug("send-inputs-to-cli");
         await previousPromise;
         let inputString;
 
@@ -49,6 +52,7 @@ export default async ({
 
         setTimeout(() => {
           try {
+            debugCommand(encodeURI(inputString));
             stdin.write(inputString);
           } catch (e) {
             throw new Error(

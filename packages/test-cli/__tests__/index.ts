@@ -2,7 +2,7 @@ import { ensureDir } from "fs-extra";
 import { v4 as uuidv4 } from "uuid";
 
 import testCLI, { ITestCLIReturn } from "../";
-import { SPACE, DOWN, ENTER } from "@infragen/util-send-inputs-to-cli";
+import { SPACE, DOWN, ENTER } from "@node-cli-toolkit/send-inputs-to-cli";
 
 const TMP_DIR = "/tmp/";
 
@@ -37,7 +37,7 @@ const STD_CLI_INPUTS = [
   ENTER
 ];
 
-describe("@infragen/util-test-cli", () => {
+describe("@node-cli-toolkit/test-cli", () => {
   beforeAll(() => {
     jest.setTimeout(CLI_TIMEOUT);
   });
@@ -211,7 +211,7 @@ describe("@infragen/util-test-cli", () => {
         // Check "Option 1"
         {
           input: SPACE,
-          timeoutBeforeInput: 1100
+          timeoutBeforeInput: 1500
         },
 
         // Move to "Option 2"
@@ -229,7 +229,7 @@ describe("@infragen/util-test-cli", () => {
         // Type answer to "What's your name"
         {
           input: "Anatoliy Zaslavskiy",
-          timeoutBeforeInput: 2100
+          timeoutBeforeInput: 2500
         },
 
         // Submit answer to question
@@ -290,7 +290,7 @@ describe("@infragen/util-test-cli", () => {
         ENTER
       ],
       cwd: PROJECT_ROOT,
-      timeoutBetweenInputs: 2100
+      timeoutBetweenInputs: 2500
     });
 
     expect(error.mock.calls.length).toBe(0);
