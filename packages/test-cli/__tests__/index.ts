@@ -337,7 +337,7 @@ describe("@node-cli-toolkit/test-cli", () => {
 
   it("should test a CLI by specifying a file to `nodeScriptPath`", async () => {
     const { error, code, output } = await testCLI({
-      nodeScriptPath: `${__dirname}/../mockCLIs/minimal.ts`
+      nodeScriptPath: `${__dirname}/../mockCLIs/minimal.js`
     });
 
     expect(code).toEqual(0);
@@ -375,4 +375,25 @@ describe("@node-cli-toolkit/test-cli", () => {
 
     expect(output).toBeCalledWith(expect.stringContaining("I'm ok"));
   });
+
+  it("should include and execute multiple mocks script when passed to `mockScriptPath`", async () => {
+    const { error, code, output } = await testCLI({
+      nodeScriptPath: `${__dirname}/../mockCLIs/apiTest.js`,
+      mockScriptPath: [
+        `${__dirname}/../mockCLIs/__mocks/api.js`,
+        `${__dirname}/../mockCLIs/__mocks/exampleMock.js`
+      ]
+    });
+
+    expect(code).toEqual(0);
+    // @todo figure out what's erroring
+    // expect(error.mock.calls.length).toBe(0);
+
+    expect(output).toBeCalledWith(expect.stringContaining("I'm ok"));
+    expect(output).toBeCalledWith(expect.stringContaining("I am a mock"));
+  });
+
+  it.todo(
+    "should run `nodeScriptPath` and `mockScriptPath` with `ts-node` if `ts` is passed"
+  );
 });

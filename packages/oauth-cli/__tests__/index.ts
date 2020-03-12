@@ -8,6 +8,7 @@ import { getToken } from "@node-api-toolkit/save-token";
 import oauthCLI from "../index";
 import dropboxOauthMock from "../__mocks/dropboxOauth";
 import oauthMock from "../__mocks/oauth";
+import dropboxOauthSimulateCallback from "../__mocks/dropboxOauthSimulateCallback";
 
 jest.mock("child_process");
 
@@ -46,14 +47,14 @@ describe("@node-cli-toolkit/oauth-cli", () => {
   });
 
   it("should perform an oauth flow using a passed in strategy", async done => {
-    // we have start this after the command is run which starts the server
-    setTimeout(async () => {
-      // simulate a redirect from the oauth server (user logged in)
-      // and expect a successful login
-      expect(
-        (await axios.get("http://localhost:8888/auth/callback?code=123")).data
-      ).toEqual("You have successfully logged in! You can close the browser");
-    }, 500);
+    // simulate a redirect from the oauth server (user logged in)
+    // and expect a successful login
+    const dropboxOauthSimulateCallbackPromise = dropboxOauthSimulateCallback();
+
+    // we don't await it because we need `oauthCLI` to start the server first
+    expect(dropboxOauthSimulateCallbackPromise).resolves.toEqual(
+      "You have successfully logged in! You can close the browser"
+    );
 
     dropboxOauthMock();
 
@@ -183,6 +184,61 @@ describe("@node-cli-toolkit/oauth-cli", () => {
 
     expect(token).toEqual("I_AM_THE_TOKEN");
 
+    done();
+  });
+
+  it("should accept strategy as a string", async done => {
+    // we have start this after the command is run which starts the server
+    setTimeout(async () => {
+      // simulate a redirect from the oauth server (user logged in)
+      // and expect a successful login
+      expect(
+        (await axios.get("http://localhost:8888/auth/callback?code=123")).data
+      ).toEqual("You have successfully logged in! You can close the browser");
+    }, 500);
+
+    dropboxOauthMock();
+
+    expect(
+      await oauthCLI({
+        oauthStrategy: "passport-dropbox-oauth2",
+        oauthStrategyOptions: {
+          apiVersion: "2"
+        },
+        mutateUser: profile => ({
+          userId: profile.id,
+          email: profile.emails[0].value,
+          name: {
+            givenName: profile.name.givenName,
+            familyName: profile.name.familyName,
+            displayName: profile.displayName
+          },
+          // any other user details
+          profile
+        }),
+        appSecret: "SECRET",
+        appKey: "KEY"
+      })
+    ).toEqual({
+      accessToken: "I_AM_THE_TOKEN",
+      refreshToken: "REFRESH_TOKEN",
+      user: {
+        userId: "123",
+        email: "franz@dropbox.com",
+        name: {
+          givenName: "Franz",
+          familyName: "Ferdinand",
+          displayName: "Franz Ferdinand (Personal)"
+        },
+        profile: expect.anything()
+      }
+    });
+
+    expect(execSync).toBeCalledWith(
+      expect.stringContaining(
+        `open "https://www.dropbox.com/oauth2/authorize?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8888%2Fauth%2Fcallback&client_id=KEY"`
+      )
+    );
     done();
   });
 

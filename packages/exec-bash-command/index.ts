@@ -64,7 +64,6 @@ export default ({
 }: IExecBashCommandOpts): Promise<IExecBashCommandReturn> =>
   new Promise((resolve, reject) => {
     const debugCommand = debug(`exec-bash-command`);
-
     const output = `Executing command "${bashCommand}" in ${cwd}`;
     debugCommand(output);
     outputCB && outputCB(output);
@@ -105,6 +104,9 @@ export default ({
     });
 
     proc.on("exit", code => {
+      // in the case that we exited before the promise was created
+      // (no output)
+      sendInputsPromise = sendInputsPromise || Promise.resolve();
       sendInputsPromise.then(
         () => {
           if (code === 0) {
