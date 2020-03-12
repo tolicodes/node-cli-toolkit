@@ -1,4 +1,7 @@
+jest.mock("child_process");
+
 import { execSync } from "child_process";
+
 import axios from "axios";
 import { Strategy as DropboxOAuth2Strategy } from "passport-dropbox-oauth2";
 import { v4 as uuid } from "uuid";
@@ -9,8 +12,6 @@ import oauthCLI from "../index";
 import dropboxOauthMock from "../__mocks/dropboxOauth";
 import oauthMock from "../__mocks/oauth";
 import dropboxOauthSimulateCallback from "../__mocks/dropboxOauthSimulateCallback";
-
-jest.mock("child_process");
 
 describe("@node-cli-toolkit/oauth-cli", () => {
   it("should perform an oauth flow using the default strategy", async done => {

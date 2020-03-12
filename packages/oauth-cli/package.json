@@ -38,5 +38,6 @@
   },
   "bin": {
     "generate-token-cli": "dist/generateTokenCLI.js"
-  }
+  },
+  "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
 }

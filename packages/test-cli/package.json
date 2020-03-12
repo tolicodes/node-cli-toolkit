@@ -10,6 +10,7 @@
   "main": "dist/index.js",
   "author": "",
   "license": "ISC",
+  "public": true,
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/node": "^12.12.17",
@@ -25,5 +26,6 @@
   "dependencies": {
     "@node-cli-toolkit/exec-bash-command": "^0.3.0",
     "@node-cli-toolkit/send-inputs-to-cli": "^0.3.0"
-  }
+  },
+  "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
 }
