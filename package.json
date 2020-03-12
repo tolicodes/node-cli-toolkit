@@ -4,7 +4,7 @@
     "start": "ts-node .",
     "test": "yarn jest --config jest.config.json --runInBand --verbose",
     "test:watch": "yarn test --watch",
-    "test:debug": "DEBUG=* yarn test",
+    "test:debug": "DEBUG=* yarn test --verbose",
     "test:watch:debug": "yarn test:debug --watch"
   },
   "version": "0.0.1",

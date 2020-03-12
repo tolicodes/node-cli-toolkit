@@ -4,7 +4,8 @@
     "start": "ts-node .",
     "test": "jest --config jest.config.json --runInBand",
     "test:watch": "yarn test --watch",
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "add": "lerna add --scope=@node-cli-toolkit/oauth-cli"
   },
   "version": "0.2.0",
   "main": "index.js",
@@ -32,6 +33,10 @@
     "express": "^4.17.1",
     "passport": "^0.4.1",
     "passport-oauth2": "^1.5.0",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "yargs": "^15.3.0"
+  },
+  "bin": {
+    "generate-token-cli": "dist/generateTokenCLI.js"
   }
 }

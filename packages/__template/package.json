@@ -4,7 +4,8 @@
     "start": "ts-node .",
     "test": "jest --config jest.config.json --runInBand",
     "test:watch": "yarn test --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "add": "lerna add --scope=@node-cli-toolkit/<name>"
   },
   "main": "dist/index.js",
   "version": "0.2.0",

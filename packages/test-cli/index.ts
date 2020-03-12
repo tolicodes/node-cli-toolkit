@@ -1,5 +1,6 @@
 import { writeFileSync, unlinkSync } from "fs";
 import { v4 as uuidv4 } from "uuid";
+import debugCreator from "debug";
 
 import execBashCommand from "@node-cli-toolkit/exec-bash-command";
 
@@ -45,7 +46,9 @@ export interface ITestCLIOpts {
 
   // a file exporting an executable default function with the mocks
   // for a script. Use for mocking APIs
-  mockScriptPath?: string;
+  // you can also pass multiple file paths and they will be loaded in
+  // order
+  mockScriptPath?: string | string[];
 
   // specify arguments (when using with nodeScriptPath or nodeScript)
   // ex: --input1=hello --input2=bye
@@ -94,8 +97,9 @@ export default ({
 
   timeoutBetweenInputs = DEFAULT_TIMEOUT_BETWEEN_INPUTS,
   cwd,
-  debug = true
+  debug = false
 }: ITestCLIOpts = {}): Promise<ITestCLIReturn> => {
+  const debugCommand = debugCreator("@node-cli-toolkit/test-cli");
   // we handle debugging here by watching the functions we pass through
   const outputCB = jest.fn();
   const errorCB = jest.fn();
@@ -112,14 +116,51 @@ export default ({
   if (nodeScriptPath) {
     tmpFile = `${TMP_DIR}/${uuidv4()}.${extension}`;
 
-    const file = `
-      ${mockScriptPath &&
-        `
-      const mock = require('${mockScriptPath}');
-      mock();
-      `}
-      require('${nodeScriptPath}');
+    let file;
+    let mockScriptIncludes;
+
+    const removeExtension = script =>
+      script.replace(".ts", "").replace(".js", "");
+
+    if (Array.isArray(mockScriptPath)) {
+      mockScriptIncludes = mockScriptPath.map(removeExtension);
+    } else if (typeof mockScriptPath === "string") {
+      mockScriptIncludes = [removeExtension(mockScriptPath)];
+    } else {
+      mockScriptIncludes = [];
+    }
+
+    const nodeScriptInclude = removeExtension(nodeScriptPath);
+
+    if (extension === "ts") {
+      file = `
+      ${mockScriptIncludes
+        .map(
+          (script, i) =>
+            `
+            import mock${i} from '${script}';
+            mock${i}();
+          `
+        )
+        .join("\n")}
+      import '${nodeScriptInclude}';
     `;
+    } else {
+      file = `
+      ${mockScriptIncludes
+        .map(
+          (script, i) =>
+            `
+            const mock${i} = require('${script}');
+            mock${i}();
+          `
+        )
+        .join("\n")}
+      require('${nodeScriptInclude}');
+    `;
+    }
+
+    debugCommand(`File to execute: ${file}`);
 
     writeFileSync(tmpFile, file);
 

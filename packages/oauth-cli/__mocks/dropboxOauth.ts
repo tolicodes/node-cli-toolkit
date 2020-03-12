@@ -1,4 +1,4 @@
-import nock = require("nock");
+const nock = require("nock");
 
 export default () => {
   // when the request starts, we make a redirect to the oauth server

@@ -4,6 +4,7 @@ import Oauth2Strategy = require("passport-oauth2");
 import express = require("express");
 import url = require("url");
 import axios from "axios";
+import debugCreator from "debug";
 
 import { saveToken } from "@node-api-toolkit/save-token";
 
@@ -14,8 +15,9 @@ export type MutateUser = (user: any) => any;
 export type OAuthCliOpts = {
   authorizationURL?: string;
   tokenURL?: string;
+  // @todo not sure what typing should be
   // sometimes it doesn't have typings
-  oauthStrategy?: any;
+  oauthStrategy?: any | string;
   oauthStrategyOptions?: object;
   mutateUser?: MutateUser;
 
@@ -92,6 +94,7 @@ export default ({
   tokenPath
 }: OAuthCliOpts): Promise<OauthCLIReturn> =>
   new Promise(async resolve => {
+    const debugCommand = debugCreator("@node-cli-toolkit/oauth-cli");
     // we do this so that we can kill the server if there is any errors
     let server;
 
@@ -104,6 +107,7 @@ export default ({
       // we create a temporary response server
       // so that oauth can redirect back to it
       const app = express();
+      debugCommand("Creating express server");
 
       // deconstruct the callbackURL so that
       // we can easily reference the path or host
@@ -118,6 +122,10 @@ export default ({
       server = app.listen(serverPort);
 
       app.use(passport.initialize());
+
+      if (typeof oauthStrategy === "string") {
+        oauthStrategy = require(oauthStrategy).Strategy;
+      }
 
       // we want to use the passed in strategy or the default
       // oauth2 strategy if it's not passed in
@@ -145,6 +153,7 @@ export default ({
       const strategy = new Strategy(
         strategyOpts,
         async (accessToken, refreshToken, profile, done) => {
+          debugCommand(`Got access token ${accessToken}`);
           // we save these so that we can officially resolve the
           // promise when we are redirected to `/success`
           result = {
@@ -167,6 +176,10 @@ export default ({
 
       // this is where we start the authentication
       app.get("/start", passport.authenticate(strategyName));
+
+      app.get("/failure", () => {
+        debugCommand("Oauth failed");
+      });
 
       app.get("/success", (req, res) => {
         // we need to send this so that the user can close the window
@@ -195,6 +208,10 @@ export default ({
         await axios.get(`${serverProtocol}//${serverHost}/start`)
       ).request.response.responseUrl;
 
+      debugCommand(`fullAuthorizationURL: ${fullAuthorizationURL}`);
+      debugCommand(`callbackPath: ${callbackPath}`);
+      debugCommand(`strategyName: ${strategyName}`);
+
       // setup the callback path (for when the oauth server responds)
       // we need a success redirect which will signify the end of the
       // authentication
@@ -202,7 +219,8 @@ export default ({
         callbackPath,
         passport.authenticate(strategyName, {
           session: false,
-          successRedirect: "/success"
+          successRedirect: "/success",
+          failureRedirect: "/failure"
         })
       );
       execSync(`open "${fullAuthorizationURL}"`);
