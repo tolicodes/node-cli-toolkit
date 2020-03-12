@@ -22,5 +22,6 @@
     "ts-node": "^8.6.2",
     "tsc": "^1.20150623.0",
     "typescript": "^3.7.5"
-  }
+  },
+  "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
 }

@@ -204,9 +204,14 @@ export default ({
       // this is the authorization url with the key and callback
       // passed in. It's given as a redirect when we hit the /start
       // url
-      const fullAuthorizationURL = (
+      const fullAuthorizationRequest = (
         await axios.get(`${serverProtocol}//${serverHost}/start`)
-      ).request.response.responseUrl;
+      ).request;
+
+      // for some reason this is different in mocks vs reality
+      const fullAuthorizationURL = fullAuthorizationRequest.res
+        ? fullAuthorizationRequest.res.responseUrl
+        : fullAuthorizationRequest.response.responseUrl;
 
       debugCommand(`fullAuthorizationURL: ${fullAuthorizationURL}`);
       debugCommand(`callbackPath: ${callbackPath}`);
