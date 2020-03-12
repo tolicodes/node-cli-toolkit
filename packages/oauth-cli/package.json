@@ -7,7 +7,7 @@
     "build": "yarn tsc",
     "add": "lerna add --scope=@node-cli-toolkit/oauth-cli"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "index.js",
   "license": "GPL-3.0",
   "public": true,
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@node-api-toolkit/save-token": "^0.9.0",
-    "@node-cli-toolkit/test-cli": "^1.0.0",
+    "@node-cli-toolkit/test-cli": "^0.3.0",
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "passport": "^0.4.1",

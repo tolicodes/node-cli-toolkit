@@ -1,6 +1,6 @@
 {
   "name": "@node-cli-toolkit/send-inputs-to-cli",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "description": "",
   "scripts": {
     "test": "jest --config jest.config.json",
@@ -16,8 +16,7 @@
     "inquirer": "^7.0.1",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.7.2",
-    "ts-node": "^8.5.4"
-  },
-  "dependencies": {}
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.2"
+  }
 }
