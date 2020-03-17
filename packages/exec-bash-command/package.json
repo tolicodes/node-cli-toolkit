@@ -12,19 +12,19 @@
   "license": "ISC",
   "public": true,
   "devDependencies": {
-    "@node-cli-toolkit/send-inputs-to-cli": "^0.3.0",
-    "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.17",
+    "@node-cli-toolkit/send-inputs-to-cli": "^0.4.1",
+    "@types/jest": "^25.1.2",
+    "@types/node": "^13.7.1",
     "fs-extra": "^8.1.0",
     "inquirer": "^7.0.2",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.2.0",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.2",
-    "uuid": "^3.3.3"
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5",
+    "uuid": "^3.4.0"
   },
   "dependencies": {
-    "uuid": "^3.3.3"
+    "uuid": "^3.4.0"
   },
   "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
 }

@@ -11,13 +11,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "@types/node": "^13.1.4",
-    "inquirer": "^7.0.1",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.2.0",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.2"
+    "@types/jest": "^25.1.2",
+    "@types/node": "^13.7.1",
+    "inquirer": "^7.0.2",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
 }

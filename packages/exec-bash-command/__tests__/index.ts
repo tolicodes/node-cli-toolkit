@@ -1,6 +1,5 @@
 import { ensureDir } from "fs-extra";
 import { v4 as uuidv4 } from "uuid";
-import * as child_process from "child_process";
 
 import execBashCommand, { IExecBashCommandReturn } from "../";
 import { SPACE, DOWN, ENTER } from "@node-cli-toolkit/send-inputs-to-cli";
@@ -57,7 +56,7 @@ describe("@node-cli-toolkit/exec-bash-command", () => {
     };
   });
 
-  it("runs a bash command", async () => {
+  it("should run a bash command", async () => {
     const { code }: IExecBashCommandReturn = await execBashCommand({
       ...DEFAULT_EXEC_BASH_COMMAND_OPTS,
       bashCommand: `echo "hello"`
@@ -67,7 +66,7 @@ describe("@node-cli-toolkit/exec-bash-command", () => {
     expect(output).toBeCalledWith(expect.stringContaining("hello"));
   });
 
-  it("runs a bash command with inputs", async () => {
+  it("should run a bash command with inputs", async () => {
     const { code }: IExecBashCommandReturn = await execBashCommand({
       ...DEFAULT_EXEC_BASH_COMMAND_OPTS,
       bashCommand: `ts-node ./mockCLIs/standard.ts`,
@@ -103,7 +102,7 @@ describe("@node-cli-toolkit/exec-bash-command", () => {
     );
   });
 
-  it("runs a bash command with different exit code", async () => {
+  it("should run a bash command with different exit code", async () => {
     try {
       await execBashCommand({
         ...DEFAULT_EXEC_BASH_COMMAND_OPTS,
@@ -120,7 +119,7 @@ describe("@node-cli-toolkit/exec-bash-command", () => {
     }
   });
 
-  it("runs a bash command that outputs to stderr", async () => {
+  it("should run a bash command that outputs to stderr", async () => {
     const { code }: IExecBashCommandReturn = await execBashCommand({
       ...DEFAULT_EXEC_BASH_COMMAND_OPTS,
       bashCommand: `echo "hello" && >&2 echo "Something bad happened 2"`
@@ -135,7 +134,7 @@ describe("@node-cli-toolkit/exec-bash-command", () => {
     expect(code).toBe(0);
   });
 
-  it("runs a bash command with different timeouts for inputs", async () => {
+  it("should run a bash command with different timeouts for inputs", async () => {
     const { code }: IExecBashCommandReturn = await execBashCommand({
       ...DEFAULT_EXEC_BASH_COMMAND_OPTS,
       bashCommand: `ts-node ./mockCLIs/timeouts.ts`,
@@ -188,7 +187,7 @@ describe("@node-cli-toolkit/exec-bash-command", () => {
     expect(output).toBeCalledWith(expect.stringMatching(/Option 3 Chosen/));
 
     expect(output).toBeCalledWith(
-      expect.stringMatching(/What's your full name\?/)
+      expect.stringContaining("What's your full name?")
     );
 
     expect(output).toBeCalledWith(

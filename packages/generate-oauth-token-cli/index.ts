@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import oauthCLI from ".";
+import oauthCLI from "@node-cli-toolkit/oauth-cli";
 const yargs = require("yargs");
 
 // in some cases like `apiVersion` we don't want

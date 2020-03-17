@@ -6,7 +6,7 @@ import url = require("url");
 import axios from "axios";
 import debugCreator from "debug";
 
-import { saveToken } from "@node-api-toolkit/save-token";
+import { saveToken } from "@node-cli-toolkit/save-token";
 
 export const SUCCESSFUL_LOGIN_MESSAGE =
   "You have successfully logged in! You can close the browser";

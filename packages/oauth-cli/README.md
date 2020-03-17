@@ -14,6 +14,10 @@ yarn add @node-cli-toolkit/oauth-cli
 
 ## Usage
 
+### CLI Usage
+
+Note that this package has a `CLI` avaialable where you can just pass in the options as arguments. See [`generate-oauth-token-cli`](../generate-oauth-token-cli) for details.
+
 ### Using Default Oauth2 Strategy
 
 ```js
@@ -112,7 +116,7 @@ Saves token to `/tmp/NODE_CLI_TOOLKIT_OAUTH_TOKEN_JEST`
 You can retrieve using
 
 ```js
-import { getToken } from "@node-api-toolkit/save-token";
+import { getToken } from "@node-cli-toolkit/save-token";
 
 const token = await getToken({
   tokenIdentifier: "NODE_CLI_TOOLKIT_OAUTH_TOKEN_JEST"
@@ -155,7 +159,7 @@ Saves token to `/tmp/node-api-toolkit-save-token-test-custom-file`
 You can retrieve using:
 
 ```js
-import { getToken } from "@node-api-toolkit/save-token";
+import { getToken } from "@node-cli-toolkit/save-token";
 
 const token = await getToken({
   filePath: "/tmp/node-api-toolkit-save-token-test-custom-file"
@@ -182,7 +186,7 @@ const token = await getToken({
 
 ### Passing IN a Custom Strategy
 
-- `oauthStrategy` - The Strategy constructor (ex: `DropboxOAuth2Strategy`),
+- `oauthStrategy` - The Strategy constructor or `require`-able package name (ex: `DropboxOAuth2Strategy` or `passport-dropbox-oauth2`),
 - `oauthStrategyOptions` - The custom options you need pass to the strategy besides the `appKey` and `appSecret`. Example:
 
   ```
@@ -199,12 +203,6 @@ const token = await getToken({
 - `tokenIdentifier` - If saving to a file, what should be the unique token identifier. See [@node/api-toolkit/save-token](https://github.com/tolicodes/node-api-toolkit/tree/master/packages/save-token) for more info
 - `tokenPath` - If saving to a file, what should be the filename (if not using a token identifier)
 
-### Components
-
-- [getOauthUrl](./getOauthUrl.ts): Gets the OAuth URL to open the browser to
-- [getToken](./getToken.ts) Gets the token from the API server using the authorization code
-- [responseServer](./responseServer.ts) Starts an express server which listens for the redirect when the user logs in. The Redirect Server makes a request to the tokenUrl and returns back the token in the response. It resolves the promise with the token
-
-### Tests and Todos
+## Tests and Todos
 
 Everything in this package is tested thoroughly. You can also see planned features as part of the tests' todos. See [**tests** directory](__tests__).
