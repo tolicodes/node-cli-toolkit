@@ -8,7 +8,7 @@
     "add": "lerna add --scope=@node-cli-toolkit/<name>"
   },
   "main": "dist/index.js",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publishConfig": {
     "access": "public"
   },

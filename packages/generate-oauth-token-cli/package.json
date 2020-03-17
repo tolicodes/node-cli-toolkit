@@ -8,26 +8,26 @@
     "add": "lerna add --scope=@node-cli-toolkit/generate-oauth-token-cli"
   },
   "main": "dist/index.js",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "publishConfig": {
     "access": "public"
   },
   "license": "GPL-3.0",
   "public": true,
   "devDependencies": {
+    "@node-cli-toolkit/test-cli": "^0.5.0",
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
     "jest": "^25.1.0",
     "ts-jest": "^25.2.0",
     "ts-node": "^8.6.2",
     "tsc": "^1.20150623.0",
-    "typescript": "^3.7.5",
-    "@node-cli-toolkit/test-cli": "^0.4.1"
+    "typescript": "^3.7.5"
   },
   "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477",
   "dependencies": {
-    "@node-cli-toolkit/oauth-cli": "^0.3.1",
-    "@node-cli-toolkit/save-token": "^0.9.0",
+    "@node-cli-toolkit/oauth-cli": "^0.3.2",
+    "@node-cli-toolkit/save-token": "^0.9.1",
     "yargs": "^15.3.1"
   }
 }

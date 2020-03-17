@@ -1,6 +1,6 @@
 {
   "name": "@node-cli-toolkit/test-cli",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "",
   "scripts": {
     "test": "jest --config jest.config.json",
@@ -24,8 +24,8 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@node-cli-toolkit/exec-bash-command": "^0.3.1",
-    "@node-cli-toolkit/send-inputs-to-cli": "^0.4.1"
+    "@node-cli-toolkit/exec-bash-command": "^0.3.2",
+    "@node-cli-toolkit/send-inputs-to-cli": "^0.4.2"
   },
   "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
 }

@@ -8,7 +8,7 @@
     "publish": "yarn build && yarn publish",
     "add": "lerna add --scope=@node-cli-toolkit/oauth-cli"
   },
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "index.js",
   "license": "GPL-3.0",
   "public": true,
@@ -28,8 +28,8 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
-    "@node-cli-toolkit/save-token": "^0.9.0",
-    "@node-cli-toolkit/test-cli": "^0.4.1",
+    "@node-cli-toolkit/save-token": "^0.9.1",
+    "@node-cli-toolkit/test-cli": "^0.5.0",
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "passport": "^0.4.1",
