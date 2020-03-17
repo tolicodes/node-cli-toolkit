@@ -9,6 +9,8 @@ import {
   CLIInputs
 } from "@node-cli-toolkit/send-inputs-to-cli";
 
+import importNodeScriptPath from "./importNodeScriptPath";
+
 // if we don't pass a cwd, we will create the temporary node file in the tmp directory
 const TMP_DIR = "/tmp/";
 
@@ -114,57 +116,15 @@ export default ({
   }
 
   if (nodeScriptPath) {
-    tmpFile = `${TMP_DIR}/${uuidv4()}.${extension}`;
+    ({ tmpFile, bashCommand } = importNodeScriptPath({
+      nodeScriptPath,
+      extension,
+      mockScriptPath,
+      nodeCommand,
+      args,
 
-    let file;
-    let mockScriptIncludes;
-
-    const removeExtension = script =>
-      script.replace(".ts", "").replace(".js", "");
-
-    if (Array.isArray(mockScriptPath)) {
-      mockScriptIncludes = mockScriptPath.map(removeExtension);
-    } else if (typeof mockScriptPath === "string") {
-      mockScriptIncludes = [removeExtension(mockScriptPath)];
-    } else {
-      mockScriptIncludes = [];
-    }
-
-    const nodeScriptInclude = removeExtension(nodeScriptPath);
-
-    if (extension === "ts") {
-      file = `
-      ${mockScriptIncludes
-        .map(
-          (script, i) =>
-            `
-            import mock${i} from '${script}';
-            mock${i}();
-          `
-        )
-        .join("\n")}
-      import '${nodeScriptInclude}';
-    `;
-    } else {
-      file = `
-      ${mockScriptIncludes
-        .map(
-          (script, i) =>
-            `
-            const mock${i} = require('${script}');
-            mock${i}();
-          `
-        )
-        .join("\n")}
-      require('${nodeScriptInclude}');
-    `;
-    }
-
-    debugCommand(`File to execute: ${file}`);
-
-    writeFileSync(tmpFile, file);
-
-    bashCommand = `${nodeCommand} "${tmpFile}" ${args}`;
+      debugCommand
+    }));
   }
 
   return execBashCommand({

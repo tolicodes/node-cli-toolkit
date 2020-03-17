@@ -286,6 +286,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@node-cli-toolkit/send-inputs-to-cli@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/send-inputs-to-cli/-/send-inputs-to-cli-0.3.0.tgz#c179c49e8061df872b4085921edf62f1b193eda9"
+  integrity sha512-/u6Vb+2D77qoYBkRLl1059A2kmsLI899kysnRfWFKh1Dh2mt6uiheiNsP3MOWskw32vhTlOt6N3EbkMGt56vJA==
+
 "@types/babel__core@^7.1.0":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.3.tgz#e441ea7df63cd080dfcd02ab199e6d16a735fc30"

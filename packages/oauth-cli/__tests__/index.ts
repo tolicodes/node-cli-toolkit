@@ -6,7 +6,7 @@ import axios from "axios";
 import { Strategy as DropboxOAuth2Strategy } from "passport-dropbox-oauth2";
 import { v4 as uuid } from "uuid";
 
-import { getToken } from "@node-api-toolkit/save-token";
+import { getToken } from "@node-cli-toolkit/save-token";
 
 import oauthCLI from "../index";
 import dropboxOauthMock from "../__mocks/dropboxOauth";

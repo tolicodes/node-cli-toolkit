@@ -1,8 +1,8 @@
 import { v4 as uuid } from "uuid";
 import testCLI from "@node-cli-toolkit/test-cli";
-import { getToken } from "@node-api-toolkit/save-token";
+import { getToken } from "@node-cli-toolkit/save-token";
 
-describe("@node-cli-toolkit/oauth-cli/generateTokenCLI", () => {
+describe("@node-cli-toolkit/generate-oauth-token-cli", () => {
   beforeEach(() => {
     jest.setTimeout(10000);
   });
@@ -12,11 +12,12 @@ describe("@node-cli-toolkit/oauth-cli/generateTokenCLI", () => {
     const { code, error } = await testCLI({
       nodeCommand: "ts-node",
       extension: "ts",
-      nodeScriptPath: `${__dirname}/../generateTokenCLI.ts`,
+      nodeScriptPath: `${__dirname}/../index.ts`,
+      cwd: `${__dirname}/../`,
       mockScriptPath: [
-        `${__dirname}/../__mocks/dropboxOauth.ts`,
-        `${__dirname}/../__mocks/noExecSync.ts`,
-        `${__dirname}/../__mocks/dropboxOauthSimulateCallback.ts`
+        `${__dirname}/../node_modules/@node-cli-toolkit/oauth-cli/__mocks/dropboxOauth.ts`,
+        `${__dirname}/../node_modules/@node-cli-toolkit/oauth-cli/__mocks/noExecSync.ts`,
+        `${__dirname}/../node_modules/@node-cli-toolkit/oauth-cli/__mocks/dropboxOauthSimulateCallback.ts`
       ],
       args: `--oauthStrategy passport-dropbox-oauth2 \
         --oauthStrategyOptions.apiVersion 2 \

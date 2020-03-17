@@ -1,6 +1,6 @@
 # @node-cli-toolkit/send-inputs-to-cli
 
-This is a generic utility that should be able to send inputs to any CLI/process executed by `child_process.exec`. It's meant to be used in the context of Jest as it exports mock functions that fire when there's data on `stdout` or `stderr`. It is also mean to be used in conjunction with `@node-cli-toolkit/utils-test-cli`
+This is a generic utility that should be able to send inputs to any CLI/process executed by `child_process.exec`. It's meant to be used in the context of Jest as it exports mock functions that fire when there's data on `stdout` or `stderr`. It is also mean to be used in conjunction with [`@node-cli-toolkit/test-cli`](../test-cli/)
 
 ## Supported Features:
 
