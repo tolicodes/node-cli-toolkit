@@ -6,7 +6,8 @@
     "test:watch": "yarn test --watch",
     "test:debug": "DEBUG=* yarn test --verbose",
     "test:watch:debug": "yarn test:debug --watch",
-    "publish": "lerna run build && lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
+    "sync-packages": "syncpack fix-mismatches",
+    "publish": "yarn run sync-packages && lerna run build && lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
   },
   "version": "0.0.0-development",
   "main": "index.ts",
@@ -25,6 +26,7 @@
     "lerna": "^3.20.0",
     "semantic-release": "^17.0.4",
     "semantic-release-monorepo": "^7.0.1",
+    "syncpack": "^5.0.1",
     "ts-jest": "^25.2.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
