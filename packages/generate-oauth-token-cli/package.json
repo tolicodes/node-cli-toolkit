@@ -26,7 +26,7 @@
   },
   "gitHead": "0f69a00cb6dc90e539f2ad05232eee85175c570a",
   "dependencies": {
-    "@node-cli-toolkit/oauth-cli": "^0.3.9",
+    "@node-cli-toolkit/oauth-cli": "^0.4.0",
     "@node-cli-toolkit/save-token": "^0.9.1",
     "yargs": "^15.3.1"
   },
