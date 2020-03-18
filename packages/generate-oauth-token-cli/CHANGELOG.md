@@ -1,3 +1,11 @@
+# [@node-cli-toolkit/generate-oauth-token-cli-v1.0.3](https://github.com/tolicodes/node-cli-toolkit/compare/@node-cli-toolkit/generate-oauth-token-cli-v1.0.2...@node-cli-toolkit/generate-oauth-token-cli-v1.0.3) (2020-03-18)
+
+
+### Bug Fixes
+
+* **generate-oauth-token-cli:** bump version of oauth-cli ([8a2b74c](https://github.com/tolicodes/node-cli-toolkit/commit/8a2b74cca69d9fb43f60b6d7b0627aaded4a605f))
+* **generate-oauth-token-cli:** bump version of oauth-cli ([7bfe71f](https://github.com/tolicodes/node-cli-toolkit/commit/7bfe71f07e52b36c567cbb6b4296ea1cfc23297e))
+
 # [@node-cli-toolkit/generate-oauth-token-cli-v1.0.2](https://github.com/tolicodes/node-cli-toolkit/compare/@node-cli-toolkit/generate-oauth-token-cli-v1.0.1...@node-cli-toolkit/generate-oauth-token-cli-v1.0.2) (2020-03-18)
 
 
