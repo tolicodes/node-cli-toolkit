@@ -29,5 +29,8 @@
     "@node-cli-toolkit/oauth-cli": "^0.3.2",
     "@node-cli-toolkit/save-token": "^0.9.1",
     "yargs": "^15.3.1"
+  },
+  "bin": {
+    "generate-oauth-token-cli": "dist/index.js"
   }
 }
