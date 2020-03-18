@@ -325,26 +325,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@node-cli-toolkit/exec-bash-command@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/exec-bash-command/-/exec-bash-command-0.3.1.tgz#9011636df2de7f12f24bca9834bdf6eae8e1ebd5"
-  integrity sha512-6Um8nPlniLYMZJ+cyASB9NWIBnGzX3/O+o0wcQeJbv7FWfJn7VtNH0CImKDE+OXlKm57Ka9ai/SzmRvS6v8Xjw==
-  dependencies:
-    uuid "^3.3.3"
-
-"@node-cli-toolkit/send-inputs-to-cli@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/send-inputs-to-cli/-/send-inputs-to-cli-0.3.0.tgz#c179c49e8061df872b4085921edf62f1b193eda9"
-  integrity sha512-/u6Vb+2D77qoYBkRLl1059A2kmsLI899kysnRfWFKh1Dh2mt6uiheiNsP3MOWskw32vhTlOt6N3EbkMGt56vJA==
-
-"@node-cli-toolkit/test-cli@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/test-cli/-/test-cli-0.3.1.tgz#0944e6110bb5ddbce1b8f9e7131792db7d666c7d"
-  integrity sha512-VgTTI/Gyf44vO3zkL3Tvb6vkx7/pIQWaEYuqUV+mHoFloQi6XfmtjMeX2SFLTz3jx2z8jQISVfVqWau293xcrQ==
-  dependencies:
-    "@node-cli-toolkit/exec-bash-command" "^0.3.1"
-    "@node-cli-toolkit/send-inputs-to-cli" "^0.3.0"
-
 "@sinonjs/commons@^1.7.0":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.1.tgz#da5fd19a5f71177a53778073978873964f49acf1"
@@ -3308,7 +3288,7 @@ util.promisify@^1.0.0:
     has-symbols "^1.0.1"
     object.getownpropertydescriptors "^2.1.0"
 
-uuid@^3.3.2, uuid@^3.3.3:
+uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
