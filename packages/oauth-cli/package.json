@@ -8,7 +8,7 @@
     "publish": "yarn build && yarn publish",
     "add": "lerna add --scope=@node-cli-toolkit/oauth-cli"
   },
-  "version": "0.3.2",
+  "version": "0.3.5",
   "main": "index.js",
   "license": "GPL-3.0",
   "public": true,
@@ -39,5 +39,5 @@
   "bin": {
     "generate-oauth-token-cli": "dist/generateTokenCLI.js"
   },
-  "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
+  "gitHead": "0f69a00cb6dc90e539f2ad05232eee85175c570a"
 }

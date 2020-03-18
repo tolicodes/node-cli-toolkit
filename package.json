@@ -5,19 +5,38 @@
     "test": "yarn jest --config jest.config.json --runInBand --verbose",
     "test:watch": "yarn test --watch",
     "test:debug": "DEBUG=* yarn test --verbose",
-    "test:watch:debug": "yarn test:debug --watch"
+    "test:watch:debug": "yarn test:debug --watch",
+    "publish": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo"
   },
-  "version": "0.0.1",
+  "version": "0.0.0-development",
   "main": "index.ts",
   "license": "GPL-3.0",
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
+    "cz-conventional-changelog": "3.1.0",
+    "husky": "^4.2.3",
     "jest": "^25.1.0",
     "jest-watch-lerna-packages": "^1.1.0",
     "lerna": "^3.20.0",
+    "semantic-release": "^17.0.4",
+    "semantic-release-monorepo": "^7.0.1",
     "ts-jest": "^25.2.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tolicodes/node-cli-toolkit.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
   }
 }

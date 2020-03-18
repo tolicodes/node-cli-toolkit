@@ -27,5 +27,5 @@
     "@node-cli-toolkit/exec-bash-command": "^0.3.2",
     "@node-cli-toolkit/send-inputs-to-cli": "^0.4.2"
   },
-  "gitHead": "c76bcd9d270236c7af34f36d5f1a98b9577ae477"
+  "gitHead": "0f69a00cb6dc90e539f2ad05232eee85175c570a"
 }
