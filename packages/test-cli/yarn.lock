@@ -446,6 +446,18 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@node-cli-toolkit/exec-bash-command@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/exec-bash-command/-/exec-bash-command-0.3.2.tgz#118258e1ef45768f6966b734fe63537591eef384"
+  integrity sha512-etHnbPIJJDGn+C4PPQG40tba9k7B6zskGVVghw8I1KnpwtQNqBDJlzMwshs7pJW2TF3PZ+pztwpL49UehQkYgA==
+  dependencies:
+    uuid "^3.4.0"
+
+"@node-cli-toolkit/send-inputs-to-cli@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/send-inputs-to-cli/-/send-inputs-to-cli-0.4.2.tgz#dada1ead831e785fa15276c35ee57f55db545f48"
+  integrity sha512-09SSQzLk4mRw51JmMuRKi5W0HhnyoXT9hYQ+wgqA5tVccqxbVta0pJ/5QPyvqnlfyJDOkH7M+cGneVA5XxCTlA==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.1.tgz#da5fd19a5f71177a53778073978873964f49acf1"
@@ -2399,9 +2411,9 @@ lodash.sortby@^4.7.0:
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
 lodash@^4.17.13, lodash@^4.17.15:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 lolex@^5.0.0:
   version "5.1.2"
@@ -3558,6 +3570,11 @@ uuid@^3.3.2:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
+
+uuid@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
+  integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
 v8-to-istanbul@^4.0.1:
   version "4.1.2"
