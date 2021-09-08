@@ -1092,6 +1092,31 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@node-cli-toolkit/exec-bash-command@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/exec-bash-command/-/exec-bash-command-0.3.2.tgz#118258e1ef45768f6966b734fe63537591eef384"
+  integrity sha512-etHnbPIJJDGn+C4PPQG40tba9k7B6zskGVVghw8I1KnpwtQNqBDJlzMwshs7pJW2TF3PZ+pztwpL49UehQkYgA==
+  dependencies:
+    uuid "^3.4.0"
+
+"@node-cli-toolkit/save-token@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/save-token/-/save-token-0.9.1.tgz#26c0582ece66af2589ff22e8dd11fcb83eddfb74"
+  integrity sha512-tsD989rOS6Dny6UXiUl+2H/uBqA+V6GpNeKWsAbwNeRTcFsJitVWq/QIvfSDq/AuSCauUoOw3WE/BOZZRbMTuA==
+
+"@node-cli-toolkit/send-inputs-to-cli@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/send-inputs-to-cli/-/send-inputs-to-cli-0.4.2.tgz#dada1ead831e785fa15276c35ee57f55db545f48"
+  integrity sha512-09SSQzLk4mRw51JmMuRKi5W0HhnyoXT9hYQ+wgqA5tVccqxbVta0pJ/5QPyvqnlfyJDOkH7M+cGneVA5XxCTlA==
+
+"@node-cli-toolkit/test-cli@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/test-cli/-/test-cli-0.5.0.tgz#2b770bb0ff8f3c5fd2221470eebeadbaf6c08cd3"
+  integrity sha512-qeXahj4SO7C3Jl9d0B3ab8HLDU7qVr/UnMBnejjYGkk3stIfAogc6gPIvK0mLhgVEqtCkmZoHC0PKUDPTVRE5A==
+  dependencies:
+    "@node-cli-toolkit/exec-bash-command" "^0.3.2"
+    "@node-cli-toolkit/send-inputs-to-cli" "^0.4.2"
+
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
@@ -7348,9 +7373,9 @@ xtend@~4.0.1:
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
 y18n@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
-  integrity sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.1.tgz#8db2b83c31c5d75099bb890b23f3094891e247d4"
+  integrity sha512-wNcy4NvjMYL8gogWWYAO7ZFWFfHcbdbE57tZO8e4cbpj8tfUcwrwqSl3ad8HxpYWCdXcJUCeKKZS62Av1affwQ==
 
 yallist@^3.0.0, yallist@^3.0.2, yallist@^3.0.3:
   version "3.1.1"
