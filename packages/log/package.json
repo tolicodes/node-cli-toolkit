@@ -4,11 +4,11 @@
     "start": "ts-node .",
     "test": "jest --config jest.config.json --runInBand",
     "test:watch": "yarn test --watch",
-    "build": "yarn tsc",
-    "publish": "yarn build && yarn publish",
+    "build": "rm -rf dist && yarn tsc",
+    "publish": "yarn build && npm publish --access public",
     "add": "lerna add --scope=@node-cli-toolkit/log"
   },
-  "version": "0.1.0",
+  "version": "0.7.11",
   "main": "dist/index.js",
   "license": "GPL-3.0",
   "public": true,
@@ -18,8 +18,12 @@
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   },
-  "dependencies": {},
-  "bin": {
-    "generate-oauth-token-cli": "dist/src/index.js"
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {
+    "@google-cloud/logging": "^9.5.5",
+    "winston": "^3.3.3"
   }
 }

@@ -4,7 +4,7 @@ import log, {
   LogEventType,
   IWriteLogEntry,
   IWriteLogOpts,
-} from "./";
+} from "./log";
 import startTimedOp from "./startTimedOp";
 import softError, { ISoftErrorEntry, SoftErrorCB } from "./softErrorLog";
 type AddToDataMapCB = (dataMapAdditions: DataMap) => void;
@@ -21,11 +21,13 @@ interface ITryOpCallbackLoggingFuncs {
 }
 
 type TryOpCallback = (loggingFuncs: ITryOpCallbackLoggingFuncs) => any;
-type TryOpReturn = (callback: TryOpCallback) => Promise<void>;
+type TryOpReturn = (callback: TryOpCallback) => Promise<any>;
 
 interface ITryOpParams {
   eventName: string;
   type?: LogEventType;
+
+  params?: any
 }
 
 // provides a wrapper to try an operation, log data along the way, and
@@ -52,7 +54,7 @@ interface ITryOpParams {
 // });
 
 export default (
-  { eventName, type = "operation" }: ITryOpParams,
+  { eventName, type = "operation", params }: ITryOpParams,
   opts?: IWriteLogOpts
 ): TryOpReturn => {
   const complete = startTimedOp();
@@ -72,6 +74,7 @@ export default (
               ...entry,
               eventName,
               type,
+              params,
             },
             opts
           );
@@ -95,6 +98,7 @@ export default (
               ...entry,
               eventName,
               type,
+              params,
             },
             opts
           ),
@@ -118,10 +122,13 @@ export default (
         {
           eventName,
           type,
+          params,
           status: "criticalError",
-          errorCode: e.errorCode || "UNKNOWN_ERROR",
+          // @ts-ignore
+          errorCode: e?.errorCode! || "UNKNOWN_ERROR",
           errorMessage:
-            e.errorMessage ||
+            // @ts-ignore
+            e?.errorMessage ||
             `An unknown error has occurred when executing ${eventName}`,
           errorObject: e,
           dataMap,

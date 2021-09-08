@@ -12,7 +12,17 @@ const isPrimitiveish = (val: any) => {
   return !isMap(val) && !Array.isArray(val);
 };
 
-const getShallowObject = (data: any, depth = 1, ignoreArrays = false): any => {
+const getShallowObject = (data: any, {
+  extractKeys,
+  depth = 1,
+  ignoreArrays = false,
+  maxArrayLength,
+}: {
+  extractKeys?: string[],
+  depth?: number
+  ignoreArrays?: boolean
+  maxArrayLength?: number
+} = {}): any => {
   // if it's a primitive, just return it
   if (isPrimitiveish(data)) return data;
 
@@ -30,8 +40,14 @@ const getShallowObject = (data: any, depth = 1, ignoreArrays = false): any => {
     // if we are ignoring arrays just return undefined
     if (ignoreArrays) return;
 
-    return data.map((el) =>
-      getShallowObject(el, depth, ignoreArraysInRecursions)
+    const truncArray = maxArrayLength ? data.slice(0, maxArrayLength) : data;
+
+    return truncArray.map((el) =>
+      getShallowObject(el,{
+        depth,
+        ignoreArrays: ignoreArraysInRecursions,
+        extractKeys
+      })
     );
   }
 
@@ -47,6 +63,11 @@ const getShallowObject = (data: any, depth = 1, ignoreArrays = false): any => {
   // go through the object and extract only primitives, and possibly
   // maps and arrays if we are on nest level 2+
   for (const key in data) {
+    // if we extract only certain fields
+    if (extractKeys && !extractKeys.includes(key)) {
+      continue;
+    }
+
     const val = data[key];
 
     // we can apply the same logic but by decrementing the depth
@@ -56,8 +77,11 @@ const getShallowObject = (data: any, depth = 1, ignoreArrays = false): any => {
     // if the depth becomes 2+ it will work as usual
     const shallowVal = getShallowObject(
       val,
-      depth - 1,
-      ignoreArraysInRecursions
+      {
+        depth: depth - 1,
+        ignoreArrays: ignoreArraysInRecursions,
+        extractKeys,
+      }
     );
 
     // if we get undefined (it's not a primitive and we're at level 0), just don't add that key

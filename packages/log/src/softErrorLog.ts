@@ -1,4 +1,4 @@
-import log, { IWriteLogEntry, IWriteLogOpts } from ".";
+import log, { IWriteLogEntry, IWriteLogOpts } from "./log";
 
 export interface IRequiredErrorParams {
   errorCode: string;

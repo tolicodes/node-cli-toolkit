@@ -1,4 +1,4 @@
-import log, { LogCB, IWriteLogEntry, IWriteLogOpts } from ".";
+import log, { LogCB, IWriteLogEntry, IWriteLogOpts } from "./log";
 
 // starts a timer, returns a log function, and then ends the
 // timer when you run the log

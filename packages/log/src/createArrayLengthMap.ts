@@ -1,4 +1,4 @@
-import { DataMap } from ".";
+import { DataMap } from "./log";
 interface IDataCounts {
   [key: string]: number;
 }
