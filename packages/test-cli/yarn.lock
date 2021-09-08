@@ -446,6 +446,18 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@node-cli-toolkit/exec-bash-command@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/exec-bash-command/-/exec-bash-command-0.3.2.tgz#118258e1ef45768f6966b734fe63537591eef384"
+  integrity sha512-etHnbPIJJDGn+C4PPQG40tba9k7B6zskGVVghw8I1KnpwtQNqBDJlzMwshs7pJW2TF3PZ+pztwpL49UehQkYgA==
+  dependencies:
+    uuid "^3.4.0"
+
+"@node-cli-toolkit/send-inputs-to-cli@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@node-cli-toolkit/send-inputs-to-cli/-/send-inputs-to-cli-0.4.2.tgz#dada1ead831e785fa15276c35ee57f55db545f48"
+  integrity sha512-09SSQzLk4mRw51JmMuRKi5W0HhnyoXT9hYQ+wgqA5tVccqxbVta0pJ/5QPyvqnlfyJDOkH7M+cGneVA5XxCTlA==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.1.tgz#da5fd19a5f71177a53778073978873964f49acf1"
@@ -3559,6 +3571,11 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
 
+uuid@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
+  integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+
 v8-to-istanbul@^4.0.1:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/v8-to-istanbul/-/v8-to-istanbul-4.1.2.tgz#387d173be5383dbec209d21af033dcb892e3ac82"
@@ -3690,9 +3707,9 @@ xmlchars@^2.1.1:
   integrity sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==
 
 y18n@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
-  integrity sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.1.tgz#8db2b83c31c5d75099bb890b23f3094891e247d4"
+  integrity sha512-wNcy4NvjMYL8gogWWYAO7ZFWFfHcbdbE57tZO8e4cbpj8tfUcwrwqSl3ad8HxpYWCdXcJUCeKKZS62Av1affwQ==
 
 yargs-parser@^16.1.0:
   version "16.1.0"
