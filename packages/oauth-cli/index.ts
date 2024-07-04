@@ -25,6 +25,8 @@ export type OAuthCliOpts = {
   appSecret: string;
 
   callbackURL?: string;
+  enableSession?: boolean;
+  skipRedirect?: boolean;
 
   saveTokenToFile?: boolean;
   tokenPath?: string;
@@ -53,6 +55,9 @@ export type OauthCLIReturn = {
  * application (ex: 3u23809sd90239)
  *
  * @param callbackURL - (optional) The URI of our local server (default: http://localhost:8888/auth/callback)
+ * @param enableSession - (optional, default false) Whether to enable session support, required for some strategies.
+ * @param skipRedirect - (optionaal, default false) Whether to skip extractng the initial redirect url; some providers
+ * block suspicious looking requests like those from axios. The user can do the whole flow in a real browser.
  *
  * If passing in a strategy
  * @param oauthStrategy: - The Strategy constructor (ex: DropboxOAuth2Strategy),
@@ -88,6 +93,8 @@ export default ({
   mutateUser,
 
   callbackURL = "http://localhost:8888/auth/callback",
+  enableSession = false,
+  skipRedirect = false,
 
   saveTokenToFile,
   tokenIdentifier,
@@ -120,6 +127,13 @@ export default ({
 
       // the server port from the `callbackURL`
       server = app.listen(serverPort);
+
+      if (enableSession) {
+        const expressSession = (await import("express-session")).default
+        app.use(expressSession({
+          secret: 'does not matter in this context',
+        }))
+      }
 
       app.use(passport.initialize());
 
@@ -201,22 +215,6 @@ export default ({
         });
       });
 
-      // this is the authorization url with the key and callback
-      // passed in. It's given as a redirect when we hit the /start
-      // url
-      const fullAuthorizationRequest = (
-        await axios.get(`${serverProtocol}//${serverHost}/start`)
-      ).request;
-
-      // for some reason this is different in mocks vs reality
-      const fullAuthorizationURL = fullAuthorizationRequest.res
-        ? fullAuthorizationRequest.res.responseUrl
-        : fullAuthorizationRequest.response.responseUrl;
-
-      debugCommand(`fullAuthorizationURL: ${fullAuthorizationURL}`);
-      debugCommand(`callbackPath: ${callbackPath}`);
-      debugCommand(`strategyName: ${strategyName}`);
-
       // setup the callback path (for when the oauth server responds)
       // we need a success redirect which will signify the end of the
       // authentication
@@ -228,7 +226,29 @@ export default ({
           failureRedirect: "/failure"
         })
       );
-      execSync(`open "${fullAuthorizationURL}"`);
+      const startUrl = `${serverProtocol}//${serverHost}/start`
+
+      if (skipRedirect) {
+        execSync(`open "${startUrl}"`);
+      } else {
+        // this is the authorization url with the key and callback
+        // passed in. It's given as a redirect when we hit the /start
+        // url
+        const fullAuthorizationRequest = (
+          await axios.get(startUrl)
+        ).request;
+
+        // for some reason this is different in mocks vs reality
+        const fullAuthorizationURL = fullAuthorizationRequest.res
+          ? fullAuthorizationRequest.res.responseUrl
+          : fullAuthorizationRequest.response.responseUrl;
+
+        debugCommand(`fullAuthorizationURL: ${fullAuthorizationURL}`);
+        debugCommand(`callbackPath: ${callbackPath}`);
+        debugCommand(`strategyName: ${strategyName}`);
+
+        execSync(`open "${fullAuthorizationURL}"`);
+      }
     } catch (e) {
       // if there is an error, close the server
       server.close(() => {

@@ -39,5 +39,13 @@
   "bin": {
     "generate-oauth-token-cli": "dist/generateTokenCLI.js"
   },
-  "gitHead": "0f69a00cb6dc90e539f2ad05232eee85175c570a"
+  "gitHead": "0f69a00cb6dc90e539f2ad05232eee85175c570a",
+  "peerDependencies": {
+    "express-session": "^1.18.0"
+  },
+  "peerDependenciesMeta": {
+    "express-session": {
+      "optional": true
+    }
+  }
 }
